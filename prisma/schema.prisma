@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model PostType {
+  id            String    @id @default(uuid())
+  createdAt     DateTime
+  updatedAt     DateTime?
+  name          String    @unique
+  slug          String    @unique
+  schema        String
+  isHighlighted Boolean
+  posts         Post[]
+
+  @@index([slug])
+}
+
+model PostTag {
+  id        String    @id @default(uuid())
+  createdAt DateTime
+  updatedAt DateTime?
+  name      String    @unique
+  slug      String    @unique
+  hidden    Boolean
+  posts     Post[]    @relation("PostToPostTag")
+
+  @@index([slug])
+}
+
+model PostContent {
+  id        String    @id @default(uuid())
+  createdAt DateTime
+  updatedAt DateTime?
+  postId    String    @unique
+  content   String
+  info      Json
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id          String       @id @default(uuid())
+  createdAt   DateTime
+  updatedAt   DateTime?
+  postTypeId  String
+  name        String       @unique
+  slug        String       @unique
+  description String
+  cover       String
+  postType    PostType     @relation(fields: [postTypeId], references: [id])
+  postContent PostContent?
+  tags        PostTag[]    @relation("PostToPostTag")
+
+  @@index([slug])
+}
