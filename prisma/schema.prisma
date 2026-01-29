@@ -51,7 +51,7 @@ model Post {
   slug        String       @unique
   description String
   cover       String
-  postType    PostType     @relation(fields: [postTypeId], references: [id])
+  postType    PostType     @relation(fields: [postTypeId], references: [id], onDelete: Restrict)
   postContent PostContent?
   tags        PostTag[]    @relation("PostToPostTag")
 

@@ -2,6 +2,7 @@ import { UnknownException } from "@caffeine/errors";
 import {
 	ResourceNotFoundException,
 	ConflictException,
+	ForeignDependencyConstraintException,
 } from "@caffeine/errors/infra";
 
 export function prismaErrorManager(layerName: string, err: unknown) {
@@ -13,6 +14,9 @@ export function prismaErrorManager(layerName: string, err: unknown) {
 		},
 		P2002: () => {
 			throw new ConflictException(layerName, error.message);
+		},
+		P2003: () => {
+			throw new ForeignDependencyConstraintException(layerName, error.message);
 		},
 	};
 
