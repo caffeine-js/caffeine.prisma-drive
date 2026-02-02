@@ -1,5 +1,5 @@
 {
-  "name": "@caffeine/prisma-drive",
+  "name": "@caffeine-packages/post.db.prisma-drive",
   "author": {
     "name": "Alan Reis",
     "email": "alanreisanjo@gmail.com",
