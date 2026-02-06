@@ -1,4 +1,5 @@
 import { UnknownException } from "@caffeine/errors";
+import { CoreException } from "@caffeine/errors/core";
 import {
 	ResourceNotFoundException,
 	ConflictException,
@@ -23,6 +24,8 @@ export function prismaErrorManager(layerName: string, err: unknown) {
 	if (error.code && possibleErrors[error.code]) {
 		return possibleErrors[error.code]?.();
 	}
+
+	if (error instanceof CoreException) throw error;
 
 	throw new UnknownException();
 }
