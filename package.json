@@ -1,59 +1,63 @@
 {
-  "name": "@caffeine-packages/post.db.prisma-drive",
-  "author": {
-    "name": "Alan Reis",
-    "email": "alanreisanjo@gmail.com",
-    "url": "https://hoyasumii.dev"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*/index.d.ts"
-      ]
-    }
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+    "name": "@caffeine-adapters/post",
+    "author": {
+        "name": "Alan Reis",
+        "email": "alanreisanjo@gmail.com",
+        "url": "https://hoyasumii.dev"
     },
-    "./*": {
-      "types": "./dist/*/index.d.ts",
-      "import": "./dist/*/index.js",
-      "require": "./dist/*/index.cjs"
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            "*": [
+                "./dist/*/index.d.ts"
+            ]
+        }
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        },
+        "./*": {
+            "types": "./dist/*/index.d.ts",
+            "import": "./dist/*/index.js",
+            "require": "./dist/*/index.cjs"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "type": "module",
+    "devDependencies": {
+        "@types/bun": "latest",
+        "@vitest/coverage-v8": "^4.0.18",
+        "tsup": "^8.5.1",
+        "vite-tsconfig-paths": "^6.0.5",
+        "vitest": "^4.0.18",
+        "elysia": "^1.4.26"
+    },
+    "peerDependencies": {
+        "typescript": "^5",
+        "elysia": "^1.4.26"
+    },
+    "dependencies": {
+        "@caffeine/errors": "link:@caffeine/errors",
+        "@prisma/adapter-pg": "^7.3.0",
+        "@prisma/client": "^7.3.0",
+        "dotenv": "^17.2.3",
+        "pg": "^8.17.2",
+        "prisma": "^7.3.0"
+    },
+    "scripts": {
+        "build": "tsup 'src/**/index.ts' --format esm --dts --tsconfig tsconfig.build.json --clean",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "setup": "bun run build && bun link",
+        "db:setup": "bun prisma migrate dev -n init && bun prisma generate",
+        "db:generate": "bun prisma generate",
+        "db:migrate:dev": "bun prisma migrate dev"
     }
-  },
-  "files": [
-    "dist"
-  ],
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@vitest/coverage-v8": "^4.0.18",
-    "tsup": "^8.5.1",
-    "vite-tsconfig-paths": "^6.0.5",
-    "vitest": "^4.0.18"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@caffeine/errors": "link:@caffeine/errors",
-    "@prisma/adapter-pg": "^7.3.0",
-    "@prisma/client": "^7.3.0",
-    "dotenv": "^17.2.3",
-    "pg": "^8.17.2",
-    "prisma": "^7.3.0"
-  },
-  "scripts": {
-    "build": "tsup 'src/**/index.ts' --format esm --dts --tsconfig tsconfig.build.json --clean",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "setup": "bun run build && bun link",
-    "db:setup": "bun prisma migrate dev -n init && bun prisma generate"
-  }
 }

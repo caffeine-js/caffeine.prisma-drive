@@ -1,1 +1,2 @@
-export { prisma } from "./prisma";
+export { connectPrisma } from "./connect-prisma";
+export type { PrismaClient } from "./generated/prisma/client";

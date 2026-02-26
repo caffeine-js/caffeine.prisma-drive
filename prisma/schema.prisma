@@ -40,6 +40,8 @@ model PostContent {
   content   String
   info      Json
   post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([info])
 }
 
 model Post {
